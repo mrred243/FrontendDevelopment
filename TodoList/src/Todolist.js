@@ -45,7 +45,8 @@ const deleteTodo = index => {
         <input type="text" name="description" onChange={inputChanged} value={todo.description}/>
         <input type="submit" value="Add"/>
       </form>
-      <TodoTable todos={todos} click={deleteTodo}/>
+      {itemRows}
+      // <TodoTable todos={todos} click={deleteTodo}/>
     </div>
   );
 };
