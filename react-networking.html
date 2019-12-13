@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>React getting started</title>
+  </head>
+  <body>
+    <!-- Root container for react components -->
+    <div id='root'></div>
+
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+
+    <script type="text/babel">
+      // Your scripts goes here
+    const Library = () => {
+      const [input, setInput] = React.useState("");
+      const [result, setResult] = React.useState([]);
+
+        const inputChanged = (event) => {
+          setInput(event.target.value);
+        }
+        const fetchData = (event) => {
+          event.preventDefault();
+          fetch(`https://api.kirjastot.fi/v4/library?city.name=${input}`)
+          .then((response) => response.json())
+          .then((responseData) =>{
+              setResult(responseData.items);
+            });
+          console.log(result);
+          };
+
+          const itemRows = result.map((library, index) =>
+          <tr key={index}>
+            <td>{library.name}</td>
+            <td>{library.address.street}</td>
+            <td>{library.address.zipcode}</td>
+          </tr>);
+
+
+          return (
+              <div>
+                <form onSubmit={fetchData}>
+                  <input type="text" name="input" onChange={inputChanged} value={input}/>
+                  <input type="submit" value="Fetch"/>
+                </form>
+                <table>
+                  <tbody>
+                  <tr>
+                    <th>Name</th>
+                    <th>Street Address</th>
+                    <th>Zipcode</th>
+                  </tr>
+                  </tbody>
+                  {itemRows}
+
+                </table>
+              </div>
+          );
+        }
+        ReactDOM.render(<Library />, document.getElementById('root'));
+
+    </script>
+  </body>
+</html>
+­

@@ -1,0 +1,36 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Vue.js</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="input">
+      <span>{{result}}</span>
+      <br/>
+
+      <input v-model="input" placeholder="input">
+      <button v-on:click="reverse">Reverse</button>
+  </div>
+
+  <script>
+      var app  = new  Vue({
+        el:   '#input',
+        data:
+          {input: '',
+          result: 'Result in console'},
+        methods: {
+          reverse: function() {
+            this.result = this.input.split("").reverse().join("");
+            console.log(result);
+          }
+        }
+        })
+  </script>
+</body>
+</html>
+­
